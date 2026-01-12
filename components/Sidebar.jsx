@@ -2,9 +2,11 @@ import React from 'react'
 import Image from 'next/image'
 import { assets } from '@/assets/assets'
 import ChatLabel from './ChatLabel'
-import { UserButton } from '@clerk/nextjs'
+import { UserButton, SignInButton, useUser } from '@clerk/nextjs'
 
 const Sidebar = ({expand, setExpand}) => {
+  const { isSignedIn } = useUser()
+  
   return (
     <div className={`flex flex-col justify-between bg-[#212121] transition-all duration-300 h-screen border-r border-gray-800/50
       ${expand ? 'w-64 p-4' : 'w-20 py-7 px-3'}
@@ -90,14 +92,25 @@ const Sidebar = ({expand, setExpand}) => {
         </div>
 
         <div className={`flex items-center transition-all duration-300 ${expand ? 'hover:bg-gray-700/30 rounded-xl gap-2.5 p-2.5' : 'justify-center w-full hover:bg-gray-700/30 rounded-lg h-10'} text-white/70 text-[13px] cursor-pointer`}>
-          <UserButton 
-            appearance={{
-              elements: {
-                avatarBox: "w-6 h-6"
-              }
-            }}
-          />
-          {expand && <span>My Profile</span>}
+          {isSignedIn ? (
+            <>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    avatarBox: "w-6 h-6"
+                  }
+                }}
+              />
+              {expand && <span>My Profile</span>}
+            </>
+          ) : (
+            <SignInButton mode="modal">
+              <div className='flex items-center gap-2.5 w-full'>
+                <Image src={assets.profile_icon} alt='profile' className='w-6' />
+                {expand && <span>Sign In</span>}
+              </div>
+            </SignInButton>
+          )}
         </div>
       </div>
     </div>
