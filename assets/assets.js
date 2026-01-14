@@ -13,7 +13,7 @@ import qrcode from "./qrcode.jpg";
 import regenerate_icon from "./regenerate_icon.svg";
 import pin_icon from "./pin_icon.svg";
 import delete_icon from "./delete_icon.svg";
-import pencil_icon from "./pencil_icon.svg";
+import edit_icon from "./edit_icon.svg";
 import like_icon from "./like_icon.svg";
 import dislike_icon from "./dislike_icon.svg";
 import deepthink_icon from "./deepthink_icon.svg";
@@ -39,7 +39,7 @@ export const assets = {
     regenerate_icon,
     pin_icon,
     delete_icon,
-    pencil_icon,
+    edit_icon,
     like_icon,
     dislike_icon,
     deepthink_icon,

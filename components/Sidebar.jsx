@@ -3,9 +3,11 @@ import Image from 'next/image'
 import { assets } from '@/assets/assets'
 import ChatLabel from './ChatLabel'
 import { UserButton, SignInButton, useUser } from '@clerk/nextjs'
+import { useAppContext } from '@/context/AppContext'
 
 const Sidebar = ({expand, setExpand}) => {
   const { isSignedIn } = useUser()
+  const { chats , createNewChat } = useAppContext()
   
   return (
     <div className={`flex flex-col justify-between bg-[#212121] transition-all duration-300 h-screen border-r border-gray-800/50
@@ -42,7 +44,9 @@ const Sidebar = ({expand, setExpand}) => {
             </div>
         </div>
 
-        <button className={`mt-6 flex items-center justify-center cursor-pointer transition-all duration-300 ${expand ? "bg-[#4d6bfe] hover:bg-[#3d5bee] rounded-xl gap-2.5 p-2.5 w-full" : 
+        <button
+          onClick={createNewChat}
+         className={`mt-6 flex items-center justify-center cursor-pointer transition-all duration-300 ${expand ? "bg-[#4d6bfe] hover:bg-[#3d5bee] rounded-xl gap-2.5 p-2.5 w-full" : 
           "group relative h-10 w-10 mx-auto hover:bg-gray-700/30 rounded-lg"}`}>
           <Image 
             className={expand ? 'w-5' : 'w-6'} 
@@ -58,14 +62,24 @@ const Sidebar = ({expand, setExpand}) => {
           {expand && <p className='text-white text-[15px] font-medium'>New chat</p>}
         </button>
 
-        {expand && (
-          <div className='mt-7 text-white/40 text-xs font-medium'>
-            <p className='mb-2 px-2'>Recents</p>
-            <div className='space-y-1'>
-              <ChatLabel chatName="Chat Name Here" />
-            </div>
-          </div>
-        )}
+       {expand && (
+  <div className='mt-7 text-white/40 text-xs font-medium'>
+    <p className='mb-2 px-2'>Recents</p>
+    <div className='space-y-1 max-h-[calc(100vh-400px)] overflow-y-auto pr-1'>
+      {chats && chats.length > 0 ? (
+        chats.map((chat) => (
+          <ChatLabel 
+            key={chat._id} 
+            id={chat._id} 
+            name={chat.name || 'Untitled Chat'} 
+          />
+        ))
+      ) : (
+        <p className='px-2 text-white/30 text-xs'>No recent chats</p>
+      )}
+    </div>
+  </div>
+)}
       </div>
 
       <div className='space-y-2 pb-4'>
