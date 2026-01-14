@@ -119,7 +119,7 @@ const Sidebar = ({expand, setExpand}) => {
             </>
           ) : (
             <SignInButton mode="modal">
-              <div className='flex items-center gap-2.5 w-full'>
+              <div className={`flex items-center gap-2.5 ${expand ? 'w-full' : 'justify-center'}`}>
                 <Image src={assets.profile_icon} alt='profile' className='w-6' />
                 {expand && <span>Sign In</span>}
               </div>
