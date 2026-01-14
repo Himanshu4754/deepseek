@@ -3,6 +3,14 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import Prism from 'prismjs'
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-bash';
 import toast from 'react-hot-toast'
 
 const Message = ({ role, content, onEdit }) => {
